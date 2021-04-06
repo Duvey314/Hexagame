@@ -6,6 +6,7 @@ using UnityEngine;
 public class GridController : MonoBehaviour
 {
     public int gridSize = 5;
+    public float hexSize = 1;
     public GameObject gridHexagonPrefab;
     // Start is called before the first frame update
     void Start()
@@ -24,11 +25,11 @@ public class GridController : MonoBehaviour
     {
         Debug.Log("Generating Grid");
         int[] grid;
-        for (int x = -gridSize; x < gridSize; x++) 
+        for (int x = -gridSize; x < gridSize+1; x++) 
         {
-            for (int y = -gridSize; y < gridSize; y++) 
+            for (int y = -gridSize; y < gridSize+1; y++) 
             {
-                for (int z = -gridSize; z < gridSize; z++) 
+                for (int z = -gridSize; z < gridSize+1; z++) 
                 {
                     if (x+y+z == 0)
                     {
@@ -40,8 +41,8 @@ public class GridController : MonoBehaviour
 
                         else
                         {
-                            float centX = 1 * (Convert.ToSingle(Math.Sqrt(3)) * Convert.ToSingle(x) + Convert.ToSingle(Math.Sqrt(3) / 2) * Convert.ToSingle(z));
-                            float centY = 1 * (Convert.ToSingle(3.0 / 2) * Convert.ToSingle(z));
+                            float centX = hexSize * (Convert.ToSingle(Math.Sqrt(3)) * Convert.ToSingle(x) + Convert.ToSingle(Math.Sqrt(3) / 2) * Convert.ToSingle(z));
+                            float centY = hexSize * (Convert.ToSingle(3.0 / 2) * Convert.ToSingle(z));
                             Instantiate(gridHexagonPrefab, new Vector2(centX,centY), Quaternion.identity);
                             
                         }
