@@ -25,6 +25,7 @@ public class GridController : MonoBehaviour
     {
         Debug.Log("Generating Grid");
         int[] grid;
+        GameObject hexagon;
         for (int x = -gridSize; x < gridSize+1; x++) 
         {
             for (int y = -gridSize; y < gridSize+1; y++) 
@@ -36,14 +37,20 @@ public class GridController : MonoBehaviour
                         Debug.Log($"Element added at: {x},{y},{z}");
                         if(x==0 & y == 0 & x == 0)
                         {
-                            Instantiate(gridHexagonPrefab, new Vector2(0,0), Quaternion.identity);
+                            hexagon = Instantiate(gridHexagonPrefab, new Vector2(0,0), Quaternion.identity);
+                            hexagon.GetComponent<HexagonController>().X = x;
+                            hexagon.GetComponent<HexagonController>().Y = y;
+                            hexagon.GetComponent<HexagonController>().Z = z;
                         }
 
                         else
                         {
                             float centX = hexSize * (Convert.ToSingle(Math.Sqrt(3)) * Convert.ToSingle(x) + Convert.ToSingle(Math.Sqrt(3) / 2) * Convert.ToSingle(z));
                             float centY = hexSize * (Convert.ToSingle(3.0 / 2) * Convert.ToSingle(z));
-                            Instantiate(gridHexagonPrefab, new Vector2(centX,centY), Quaternion.identity);
+                            hexagon = Instantiate(gridHexagonPrefab, new Vector2(centX,centY), Quaternion.identity);
+                            hexagon.GetComponent<HexagonController>().X = x;
+                            hexagon.GetComponent<HexagonController>().Y = y;
+                            hexagon.GetComponent<HexagonController>().Z = z;
                             
                         }
                     }
