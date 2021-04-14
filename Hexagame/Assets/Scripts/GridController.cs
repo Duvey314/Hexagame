@@ -101,10 +101,23 @@ public class GridController : MonoBehaviour
             {
                 Debug.Log("Hex not a match");
             }
-
         }
-    
     return new GameObject();
+    }
+
+    public void GetNeighbors(int x, int y, int z){
+        // neighbors = {};
+
+        int[,] cubeDirections = new int[,] { {1, -1, 0}, {1, 0, -1}, {0, 1, -1}, 
+                                        {-1, 1, 0}, {-1, 0, 1}, {0, -1, 1} };
+        
+        // # for direction in cube_directions:
+        // #     neighbor = [x+direction[0],y+direction[1],z+direction[2]]
+        // #     neighbors.append(neighbor)
+        // for direction in cube_directions:
+        //     neighbor = grid.ret_hex_cube(x+direction[0],y+direction[1],z+direction[2])
+        //     neighbors.append(neighbor)
+        // return(neighbors)
 
     }
         
