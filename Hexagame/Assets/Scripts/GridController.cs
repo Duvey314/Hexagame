@@ -14,7 +14,7 @@ public class GridController : MonoBehaviour
     {
         GenerateGrid();
         Debug.Log("Program Started");
-        ReturnHexObject(0,0,0);
+        GetNeighbors(-1,0,1);
     }
 
     // Update is called once per frame
@@ -106,14 +106,28 @@ public class GridController : MonoBehaviour
     }
 
     public void GetNeighbors(int x, int y, int z){
-        // neighbors = {};
+        
+        List<GameObject> cubeNeighbors = new List<GameObject>();
 
         int[,] cubeDirections = new int[,] { {1, -1, 0}, {1, 0, -1}, {0, 1, -1}, 
                                         {-1, 1, 0}, {-1, 0, 1}, {0, -1, 1} };
         
-        // # for direction in cube_directions:
-        // #     neighbor = [x+direction[0],y+direction[1],z+direction[2]]
-        // #     neighbors.append(neighbor)
+        for (int i = 0; i < cubeDirections.GetLength(0); i++)
+        {
+            int xCoord = cubeDirections[i,0] + x;
+            int yCoord = cubeDirections[i,1] + y;
+            int zCoord = cubeDirections[i,2] + z;
+            GameObject neighboringHexagon = ReturnHexObject(xCoord, yCoord, zCoord);
+            
+            // hexagonRender = neighboringHexagon.GetComponent<Renderer>();
+            //Get the Renderer component from the new cube
+            neighboringHexagon.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        
+            cubeNeighbors.Add(neighboringHexagon);
+        }
+
+        Debug.Log(cubeNeighbors);
+
         // for direction in cube_directions:
         //     neighbor = grid.ret_hex_cube(x+direction[0],y+direction[1],z+direction[2])
         //     neighbors.append(neighbor)

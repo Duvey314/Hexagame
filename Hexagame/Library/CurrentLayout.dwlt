@@ -113,8 +113,8 @@ MonoBehaviour:
     y: 30
     width: 1280
     height: 628
-  m_MinSize: {x: 683, y: 448}
-  m_MaxSize: {x: 12008, y: 8048}
+  m_MinSize: {x: 677, y: 448}
+  m_MaxSize: {x: 12006, y: 8048}
   vertical: 0
   controlID: 76
 --- !u!114 &6
@@ -216,8 +216,8 @@ MonoBehaviour:
     y: 0
     width: 532
     height: 628
-  m_MinSize: {x: 204, y: 348}
-  m_MaxSize: {x: 4004, y: 8048}
+  m_MinSize: {x: 200, y: 324}
+  m_MaxSize: {x: 4004, y: 8024}
   vertical: 1
   controlID: 116
 --- !u!114 &10
@@ -411,9 +411,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.7590704, y: 1.07895, z: -0.78088486}
+    m_Target: {x: 1.2837212, y: 0.095100865, z: -0.76171875}
     speed: 2
-    m_Value: {x: 1.7590704, y: 1.07895, z: -0.78088486}
+    m_Value: {x: 1.2837212, y: 0.095100865, z: -0.76171875}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -445,9 +445,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 7.1784105
+    m_Target: 5.312921
     speed: 2
-    m_Value: 7.1784105
+    m_Value: 5.312921
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -554,7 +554,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: defbffff
+      m_ExpandedIDs: defbffffb40c0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -616,7 +616,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefabs
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
