@@ -8,6 +8,7 @@ public class GridController : MonoBehaviour
     public int gridSize = 5;
     public float hexSize = 1;
     public GameObject gridHexagonPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,22 +60,15 @@ public class GridController : MonoBehaviour
         }
 
     }
-}
-    // public void DrawGrid()
-    // {
 
-    // # need the . in 3/2 to make 3.0/2
-    //     if (self.x == 0 and self.y == 0 and self.z == 0):
-    //         self.centx = self.canvas_width / 2
-    //         self.centy = self.canvas_height / 2
-    //         print("one")
-    //     else:
-    //         print("two")
-    //         if self.rot == 'flat':
-    //             self.centx = (self.size * ((3.0 / 2) * self.x)) + (self.canvas_width / 2)
-    //             self.centy = (self.size * ((math.sqrt(3) / 2) * self.x + math.sqrt(3) * self.z)) + (self.canvas_height / 2)
-    //         elif self.rot == 'pointy':
-    //             self.centx = (self.size * (math.sqrt(3) * self.x + math.sqrt(3) / 2 * self.z)) + (self.canvas_height / 2)
-    //             self.centy = (self.size * ((3.0 / 2) * self.z)) + (self.canvas_width / 2)    
+    // public GameObject[] GetNeighbors(int x, int y, int z)
+    // {
+    //     new GameObject[] hexNeighbors;
+    //     return hexNeighbors;
     // }
+    public GameObject ReturnHexObject(int x, int y, int z){
+        
+    }
+        
+}
 
