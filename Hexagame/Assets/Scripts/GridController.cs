@@ -14,6 +14,7 @@ public class GridController : MonoBehaviour
     {
         GenerateGrid();
         Debug.Log("Program Started");
+        ReturnHexObject(0,0,0);
     }
 
     // Update is called once per frame
@@ -35,20 +36,36 @@ public class GridController : MonoBehaviour
                 {
                     if (x+y+z == 0)
                     {
-                        Debug.Log($"Element added at: {x},{y},{z}");
+                        //Debug.Log($"Element added at: {x},{y},{z}");
                         if(x==0 & y == 0 & x == 0)
                         {
+                            // Create the hexagon and set it's center to be the center (0,0)
                             hexagon = Instantiate(gridHexagonPrefab, new Vector2(0,0), Quaternion.identity);
+                            
+                            // Set the hexgrid as the parent of the hexagon
+                            hexagon.transform.parent = transform;
+                            
+                            // Set the grid coordinates of the hexagon
                             hexagon.GetComponent<HexagonController>().X = x;
                             hexagon.GetComponent<HexagonController>().Y = y;
                             hexagon.GetComponent<HexagonController>().Z = z;
+                           
+                            
                         }
 
                         else
                         {
+                            // Set the location of the hexagon
                             float centX = hexSize * (Convert.ToSingle(Math.Sqrt(3)) * Convert.ToSingle(x) + Convert.ToSingle(Math.Sqrt(3) / 2) * Convert.ToSingle(z));
                             float centY = hexSize * (Convert.ToSingle(3.0 / 2) * Convert.ToSingle(z));
+
+                            // Create the hexagon and set it's center from above
                             hexagon = Instantiate(gridHexagonPrefab, new Vector2(centX,centY), Quaternion.identity);
+                            
+                            // Set the hexgrid as the parent of the hexagon
+                            hexagon.transform.parent = transform;
+
+                            // Set the grid coordinates of the hexagon
                             hexagon.GetComponent<HexagonController>().X = x;
                             hexagon.GetComponent<HexagonController>().Y = y;
                             hexagon.GetComponent<HexagonController>().Z = z;
@@ -66,8 +83,29 @@ public class GridController : MonoBehaviour
     //     new GameObject[] hexNeighbors;
     //     return hexNeighbors;
     // }
-    public GameObject ReturnHexObject(int x, int y, int z){
-        
+    public GameObject ReturnHexObject(int x, int y, int z)
+    {
+        foreach(Transform child in transform)
+        {
+            GameObject hexagon = child.gameObject;
+            
+            int xCoord = hexagon.GetComponent<HexagonController>().X;
+            int yCoord = hexagon.GetComponent<HexagonController>().Y;
+            int zCoord = hexagon.GetComponent<HexagonController>().Z;
+
+            if (xCoord == x && yCoord == y && zCoord == z)
+            {
+                return hexagon;
+            }
+            else
+            {
+                Debug.Log("Hex not a match");
+            }
+
+        }
+    
+    return new GameObject();
+
     }
         
 }
