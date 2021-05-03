@@ -22,6 +22,7 @@ public class OpenEditor : MonoBehaviour
     }  
     public void OnButtonPress() 
     {  
+        Debug.Log("Button Pressed");
         if (Panel != null) {  
             bool isActive = Panel.activeSelf;  
             if (isActive)

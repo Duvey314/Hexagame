@@ -14,7 +14,6 @@ public class GridController : MonoBehaviour
     {
         GenerateGrid();
         Debug.Log("Program Started");
-        GetNeighbors(-1,0,1);
     }
 
     // Update is called once per frame
@@ -133,6 +132,10 @@ public class GridController : MonoBehaviour
         //     neighbors.append(neighbor)
         // return(neighbors)
 
+    }
+
+    public void PlaceHexagon(int x, int y, int z){
+        
     }
         
 }
