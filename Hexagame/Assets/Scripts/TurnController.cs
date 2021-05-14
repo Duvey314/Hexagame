@@ -8,6 +8,7 @@ public class TurnController : MonoBehaviour
     public string[] players = {"red","yellow","green","blue"};
     public Dictionary<string, int> playerPieceCount = new Dictionary<string, int>();
     public Dictionary<string, int> playerScore = new Dictionary<string, int>();
+    public Dictionary<string, int> playerSpaceControl = new Dictionary<string, int>();
     public int activePlayer = 0;
     public string activePlayerColor = "red";
     public int numberOfPlayers = 4;
@@ -15,6 +16,9 @@ public class TurnController : MonoBehaviour
     public int piecesPerPlayer = 20;
     public Dropdown modeSelector;
     public GameObject gridController;
+    public GameObject playerController;
+    public PlayerController playerControllerScript;
+    public GridController gridControllerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -22,18 +26,42 @@ public class TurnController : MonoBehaviour
         DistributePieces(players);
         // get mode when game starts (defaults to place)
         mode = modeSelector.options[modeSelector.value].text;
+        playerControllerScript = playerController.GetComponent<PlayerController>();
+        if (playerControllerScript == null){
+            Debug.Log("controller script is null");
+        }
+        gridControllerScript = gridController.GetComponent<GridController>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+            
+    }
+
+    public void makeMove(){
+        Debug.Log("We pressed the button");
+    
+        ((int,int,int), string) move = playerControllerScript.chooseMove();
+        GameObject hexagon = gridControllerScript.ReturnHexObject(move.Item1.Item1,move.Item1.Item2,move.Item1.Item3);
+        HexagonController hexagonScript = hexagon.GetComponent<HexagonController>();
+        if (move.Item2.Equals("Place")){
+            hexagonScript.placeHexagon(activePlayerColor);
+        }
+        else if (move.Item2.Equals("Attack")){
+            hexagonScript.attackHexagon(gridControllerScript.GetSurroundingCount(move.Item1.Item1,move.Item1.Item2,move.Item1.Item3,activePlayerColor), activePlayerColor);
+        }
+        else{
+            Debug.Log("Somethings Fuckey, you tried to do an invalid move");
+        }
     }
 
     public void DistributePieces(string[] playersList){
         foreach (string player in playersList){
             playerPieceCount.Add(player, piecesPerPlayer);
             playerScore.Add(player,0);
+            playerSpaceControl.Add(player,0);
         }
     }
 
@@ -45,6 +73,8 @@ public class TurnController : MonoBehaviour
         playerPieceCount[activePlayerColor]--;
     }
     public void EndTurn(){
+        Debug.Log("Turn Ended");
+        gridController.GetComponent<GridController>().UpdateSpacesLeft();
         CheckGameEnd();
         if(activePlayer < numberOfPlayers-1){
             activePlayer++;
@@ -53,10 +83,11 @@ public class TurnController : MonoBehaviour
             activePlayer = 0;
         }
         activePlayerColor = players[activePlayer];
+        //Debug.Log(playerControllerScript.chooseMove());
         // update spaces left
-        gridController.GetComponent<GridController>().UpdateSpacesLeft();
     }
     
+    //public CheckforValidMove
     public void CheckGameEnd(){
         // check number of pieces left
         if (playerPieceCount[activePlayerColor]==0){

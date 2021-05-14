@@ -76,32 +76,7 @@ public class HexagonController : MonoBehaviour
             // check to see if the stack is full
             if (stackSize < 3)
             {
-                stackSize++;
-                //Debug.Log($"StackSize: {stackSize}");
-                topColor = playerColor;
-                if (playerColor == "red")
-                {
-                    GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-                }
-                else if (playerColor == "blue")
-                {
-                    GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-                }
-                else if (playerColor == "green")
-                {
-                    GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-                }
-                else if (playerColor == "yellow")
-                {
-                    GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                }
-                else
-                {
-                    GetComponent<Renderer>().material.SetColor("_Color", Color.black);
-                    Debug.Log("Unknown Player and Color");
-                }
-                turnController.GetComponent<TurnController>().DeductActivePlayerPiece();
-                turnController.GetComponent<TurnController>().EndTurn();
+                placeHexagon(playerColor);
             }
             else
             {
@@ -129,21 +104,7 @@ public class HexagonController : MonoBehaviour
                     }
                     else if (surroundingCount > 0)
                     {
-                        int diceRoll = Random.Range(1, 7);
-                        Debug.Log("You rolled a " + diceRoll);
-                        if (diceRoll <= surroundingCount)
-                        {
-                            turnController.GetComponent<TurnController>().AddPoints(stackSize, playerColor);
-                            Debug.Log("You captured the space and gained " + stackSize + " points");
-                            stackSize = 0;
-                            GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-                            topColor = "white";
-                        }
-                        else
-                        {
-                            Debug.Log("You did not capture the space");
-                        }
-                        turnController.GetComponent<TurnController>().EndTurn();
+                        attackHexagon(surroundingCount, playerColor);
                     }
                 }
                 // Debug.Log(surroundingCount + " Surounding");
@@ -154,7 +115,52 @@ public class HexagonController : MonoBehaviour
             }
         }
     }
+    public void placeHexagon(string playerColor){
+        stackSize++;
+        //Debug.Log($"StackSize: {stackSize}");
+        topColor = playerColor;
+        if (playerColor == "red")
+        {
+            GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        }
+        else if (playerColor == "blue")
+        {
+            GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+        }
+        else if (playerColor == "green")
+        {
+            GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+        }
+        else if (playerColor == "yellow")
+        {
+            GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+        }
+        else
+        {
+            GetComponent<Renderer>().material.SetColor("_Color", Color.black);
+            Debug.Log("Unknown Player and Color");
+        }
+        turnController.GetComponent<TurnController>().DeductActivePlayerPiece();
+        turnController.GetComponent<TurnController>().EndTurn();
+    }
 
+    public void attackHexagon(int surroundingCount, string playerColor){
+        int diceRoll = Random.Range(1, 7);
+        Debug.Log("You rolled a " + diceRoll);
+        if (diceRoll <= surroundingCount)
+        {
+            turnController.GetComponent<TurnController>().AddPoints(stackSize, playerColor);
+            Debug.Log("You captured the space and gained " + stackSize + " points");
+            stackSize = 0;
+            GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+            topColor = "white";
+        }
+        else
+        {
+            Debug.Log("You did not capture the space");
+        }
+        turnController.GetComponent<TurnController>().EndTurn();
+    }
     // void OnMouseExit()
     // {
     //     //The mouse is no longer hovering over the GameObject so output this message each frame
