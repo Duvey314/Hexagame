@@ -7,12 +7,15 @@ public class GridController : MonoBehaviour
 {
     public int gridSize = 5;
     public float hexSize = 1;
+    public int spacesLeft;
     public GameObject gridHexagonPrefab;
+    public List<GameObject> hexagonGridList;
 
     // Start is called before the first frame update
     void Start()
     {
         GenerateGrid();
+        UpdateSpacesLeft();
         Debug.Log("Program Started");
     }
 
@@ -25,7 +28,6 @@ public class GridController : MonoBehaviour
     public void GenerateGrid()
     {
         Debug.Log("Generating Grid");
-        int[] grid;
         GameObject hexagon;
         for (int x = -gridSize; x < gridSize+1; x++) 
         {
@@ -48,8 +50,8 @@ public class GridController : MonoBehaviour
                             hexagon.GetComponent<HexagonController>().X = x;
                             hexagon.GetComponent<HexagonController>().Y = y;
                             hexagon.GetComponent<HexagonController>().Z = z;
-                           
-                            
+
+                            hexagonGridList.Add(hexagon);
                         }
 
                         else
@@ -68,6 +70,8 @@ public class GridController : MonoBehaviour
                             hexagon.GetComponent<HexagonController>().X = x;
                             hexagon.GetComponent<HexagonController>().Y = y;
                             hexagon.GetComponent<HexagonController>().Z = z;
+
+                            hexagonGridList.Add(hexagon);
                             
                         }
                     }
@@ -98,13 +102,13 @@ public class GridController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Hex not a match");
+                //Debug.Log("Hex not a match");
             }
         }
     return new GameObject();
     }
 
-    public void GetNeighbors(int x, int y, int z){
+    public List<GameObject> GetNeighbors(int x, int y, int z){
         
         List<GameObject> cubeNeighbors = new List<GameObject>();
 
@@ -118,25 +122,43 @@ public class GridController : MonoBehaviour
             int zCoord = cubeDirections[i,2] + z;
             GameObject neighboringHexagon = ReturnHexObject(xCoord, yCoord, zCoord);
             
+            if (neighboringHexagon.GetComponent<HexagonController>()){
+                cubeNeighbors.Add(neighboringHexagon);
+            }
+            
             // hexagonRender = neighboringHexagon.GetComponent<Renderer>();
             //Get the Renderer component from the new cube
-            neighboringHexagon.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-        
-            cubeNeighbors.Add(neighboringHexagon);
+            //neighboringHexagon.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         }
 
-        Debug.Log(cubeNeighbors);
+        return(cubeNeighbors);
 
-        // for direction in cube_directions:
-        //     neighbor = grid.ret_hex_cube(x+direction[0],y+direction[1],z+direction[2])
-        //     neighbors.append(neighbor)
-        // return(neighbors)
+    }
 
+    public int GetSurroundingCount(int x, int y, int z, string player){
+        int surroundingCount = 0;
+        List<GameObject> cubeNeighbors = GetNeighbors(x,y,z);
+        foreach(GameObject neighbor in cubeNeighbors){
+            string neighborColor = neighbor.GetComponent<HexagonController>().topColor;
+            if (neighborColor == player){
+                surroundingCount++;
+            }
+        }
+        return surroundingCount;
     }
 
     public void PlaceHexagon(int x, int y, int z){
         
     }
+
+    public void UpdateSpacesLeft(){
+        spacesLeft = 0;
+        foreach(GameObject hex in hexagonGridList){
+            if (hex.GetComponent<HexagonController>().stackSize == 0){
+                spacesLeft++;
+            }
+       }
+    }
+
         
 }
-
