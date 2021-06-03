@@ -7,14 +7,18 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     public GameObject turnController;
     public GameObject gridController;
+    public bool humanPlayer = false;
+    public string playerColor; 
     private GridController gridControllerScript;
     private TurnController turnControllerScript;
+    
     
       
     void Start()
     {
         gridControllerScript = gridController.GetComponent<GridController>();
         turnControllerScript = turnController.GetComponent<TurnController>();
+        // DontDestroyOnLoad(transform.gameObject);
         // var rand = new Random();
     }
 
@@ -25,6 +29,7 @@ public class PlayerController : MonoBehaviour
     }
     
     public List<((int,int,int),string)> generateMoves(){
+        // find grid object dynamically
         List<GameObject> hexagonGridList = gridControllerScript.hexagonGridList;
         List<((int,int,int),string)> possibleMoves = new List<((int,int,int),string)>();
         foreach(GameObject hexagonObject in hexagonGridList){
@@ -47,6 +52,15 @@ public class PlayerController : MonoBehaviour
         int index = Random.Range(0, possibleMoves.Count);
         ((int,int,int),string) move = possibleMoves[index];
         return move;
+    }
+    public void autoMakeMove(){
+        ((int, int, int), string) move = chooseMove();
+        turnControllerScript.makeMove(move);
+    }
+    public void makeMove(((int,int,int),string) move){
+        //call make move function
+        turnControllerScript.makeMove(move);
+        //move.Item1.Item1, move.Item1.Item2, move.Item1.Item3
     }
     //public void  { pass in board
         

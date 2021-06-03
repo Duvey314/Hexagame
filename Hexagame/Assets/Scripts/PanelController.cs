@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PanelController : MonoBehaviour
 {
+    //add a log with recent player moves
+    //https://answers.unity.com/questions/508268/i-want-to-create-an-in-game-log-which-will-print-a.html
     public Dropdown modeSelector;
     public GameObject turnController;
     // Start is called before the first frame update
@@ -24,5 +26,18 @@ public class PanelController : MonoBehaviour
         Debug.Log("DROP DOWN CHANGED -> " + dropdown.value);
         string mode = dropdown.options[dropdown.value].text;
         turnController.GetComponent<TurnController>().mode = mode;
+    }
+
+    public void updatePanel(){
+        //current player
+        //turnController.GetComponent<TurnController>().activePlayerColor = mode;
+        //player score
+        //player turn
+        //player pieces
+        //spaces left
+        //player score
+        //most control
+        //second most
+        
     }
 }

@@ -19,6 +19,6 @@ public class MakeMoveScript : MonoBehaviour
     }
 
     public void callMakeMove(){
-        turnControllerScript.makeMove();
+        //turnControllerScript.makeMove();
     }
 }
